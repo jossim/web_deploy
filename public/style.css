@@ -1,0 +1,67 @@
+body{
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2","Helvetica","Arial","Trebuchet",sans-serif;
+}
+.slide{
+    height: 525px;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2","Helvetica","Arial","Trebuchet",sans-serif;
+}
+.blue{
+    background: #E7E8E9;
+    color: #427E8A;
+}
+.content{
+}
+ul.foot{
+    position: absolute;
+    bottom: 10px;
+}
+span.italic{
+    font-style:italic;
+}
+.red{
+    background: red;
+}
+.green{
+    background: green;
+}
+.cover{
+    -webkit-box-shadow: 0 0 50px #c0c0c0;
+    -moz-box-shadow: 0 0 50px #c0c0c0;
+    box-shadow: 0 0 50px #c0c0c0;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box; 
+    height: 515px;
+    padding: 20px;
+    position: relative;
+    width: 900px;
+    font-family: "ff-meta-web-pro-1","ff-meta-web-pro-2","Helvetica","Arial","Trebuchet",sans-serif;
+}
+.title{
+    font-size: 300%;
+//    margin-left: auto;
+//    margin-right: auto;
+    text-align: center;
+//    display: table-cell;
+    vertical-align: middle;
+    position: relative;
+    top: 35%;
+
+}
+.verse{
+    font-size: 200%;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    top: 35%;
+
+}
+.italics{
+    font-style: italic;
+}
+.outline{
+    font-size: 200%;
+}
