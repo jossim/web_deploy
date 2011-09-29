@@ -1,0 +1,12 @@
+configutations:
+  user: josephs
+
+projects:
+  git-test:
+    name: Testing Git
+    url: test.local
+    dev_repo: /storage/git/git-test
+  ftc:
+    name: For the City site
+    url: forthecity.org
+    dev_repo: /var/www/dev.forthecity.org

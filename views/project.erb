@@ -1,0 +1,57 @@
+<center><h1><%= @project['name'] %></h1></center>
+
+<h3>What would you like to do?</h3>
+
+<form class="pull" method="post" action="/project/id/pull">
+  <fieldset>
+    <legend>1. Pull Changes</legend>
+    <button type="submit">Pull Changes</button>
+  </fieldset>
+</form>
+
+<div class="span-12 column first">
+  
+  <form method="post" action="/project/id/pull">
+    <fieldset>
+      <legend>2. Commit Changes</legend>
+      <textarea placeholder="What's new?"></textarea>
+    </fieldset>
+  </form>
+
+  <fieldset>
+    <h3>Status</h3>
+    <h4>Untracked Files</h4>
+    <% @untracked_files.each do |file| %>
+      <%= file %><br />
+    <% end %>
+    <br />
+    <h4>Changed Files</h4>
+    <% @changed_files.each do |file| %>
+      <%= file %><br />
+    <% end %>
+    <br />
+    <h4>Deleted Files</h4>
+    <% @deleted_files.each do |file| %>
+      <%= file %><br />
+    <% end %>
+
+  </fieldset>
+</div>
+
+<div class="span-12 column last">
+  
+  <form method="post" action="/project/id/push">
+    <fieldset class="right_field">
+      <legend>3. Push Changes</legend>
+      <button type="submit">Push Changes</button>
+    </fieldset>
+  </form>
+
+  <form method="post" action="#">
+    <fieldset class="right_field">
+      <legend>4. Copy Database</legend>
+      Not yet :)
+    </fieldset>
+  </form>
+
+</div>

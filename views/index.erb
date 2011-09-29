@@ -1,0 +1,8 @@
+<div class="container">
+<h1><center>Welcome to Web Deploy</center></h1>
+<h3> here are a list of your projects</h3>
+
+<% @projects.each do | id, project| %>
+  <p><a href=<%="project/#{id}" %>><%= project['name'] %></p></a>
+<% end %>
+</div>
