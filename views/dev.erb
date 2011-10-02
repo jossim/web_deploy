@@ -19,9 +19,9 @@
       <legend>Status</legend>
       
       <% unless @added_files.empty? %>
-        <h4>Added Files</h4>
+        <h4>Changes to be Commited</h4>
 	<% @added_files.each do |file| %>
-	  <%= file %>
+	  <%= file %><br />
 	<% end %>
 	<br /><br />
       <% end %>

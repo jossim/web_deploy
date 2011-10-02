@@ -40,14 +40,21 @@ end
 post '/project/:id/add-remove-commit' do
   @project = get_project_by_id(params[:id])
   @dev_repo = Grit::Repo.new(@project['dev_repo'])
+  $log.debug "params: #{params.inspect}"
+  @commit_result = []
+  unless params[:files].nil?
+    @deleted = params[:files][:deleted]
+    @untracked = []
+    @untracked ||= params[:files][:untracked] 
+    @changed = []
+    @changed ||= params[:files][:changed]
 
-  @deleted = params[:files][:deleted]
-  @added ||= params[:files][:untracked] 
-  @added ||= @added + params[:files][:changed]
-  $log.debug "added: #{@added.inspect}"
-  $log.debug "deleted: #{@deleted.inspect}"
-  add_files(@dev_repo, @added)
-  remove_files(@dev_repo, @deleted)
+    add_files(@dev_repo, @untracked + @changed)
+    remove_files(@dev_repo, @deleted)
+    
+    @commit_result = commit_with_result(@dev_repo, params[:message])
+  end
+  erb :commit
 end
 
 get '/project/:id/pull' do

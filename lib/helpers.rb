@@ -57,21 +57,44 @@ helpers do
   end
 
   def add_files(repo, files)
+    $log.debug "files to add: #{files.join(' ')}"
     unless files.nil?
-      files.each do |file|
-        $log.debug "file: #{file}"
-        repo.add("#{file}")
-        $log.debug "status: #{get_added_files(repo)}"
-      end
+      server_root = env["DOCUMENT_ROOT"].sub("/public","")
+      Dir.chdir(repo.path.sub('.git',''))
+
+      system("git add #{files.join(' ')}")
+
+      Dir.chdir(server_root)
     end
   end
 
   def remove_files(repo, files)
+    $log.debug "files to delete: #{files.join(' ')}"
     unless files.nil?
-      files.each do |file|
-        repo.remove(file)
-      end
+      server_root = env["DOCUMENT_ROOT"].sub("/public","")
+      Dir.chdir(repo.path.sub('.git',''))
+
+      system("git rm #{files.join(' ')}")
+
+      Dir.chdir(server_root)
     end
   end
 
+  def commit_with_result(repo, message)
+    server_root = env["DOCUMENT_ROOT"].sub("/public","")
+    Dir.chdir(repo.path.sub('.git',''))
+    
+    commit_result = []
+
+    IO.popen "git commit -m '#{message}'" do |fd|
+      until fd.eof?
+        commit_result << fd.readline
+      end
+    end
+    Dir.chdir(server_root)
+
+    return commit_result
+  end
+
 end
+
