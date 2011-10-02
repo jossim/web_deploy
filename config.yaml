@@ -3,10 +3,22 @@ configutations:
 
 projects:
   git-test:
+    id: git-test
     name: Testing Git
-    url: test.local
+    dev_url: http://test.local
+    test_url: http://pre.local
+    production_url: http://pro.local
     dev_repo: /storage/git/git-test
-  ftc:
-    name: For the City site
-    url: forthecity.org
-    dev_repo: /var/www/dev.forthecity.org
+    master_repo: /storage/git/git-test.git
+    preview_repo: /storage/git/git-test-preview
+    production_repo: /storage/git/git-test-pro
+  ascc:
+    id: ascc
+    name: Austin Stone Site
+    dev_url: http://dev.austinstone.org
+    test_url: http://test.austinstone.org
+    production_url: http://austinstone.org
+    dev_repo: /var/www/dev.austinstone.org
+    master_repo: /scm/austinstone.git
+    preview_repo: /var/www/test.austinstone.org
+    production_repo: /var/www/austinstone.org

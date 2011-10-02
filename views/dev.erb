@@ -1,0 +1,82 @@
+<center><h1><%= @project['name'] %></h1></center>
+
+<h3>What would you like to do?</h3>
+
+<fieldset class="pull">
+  <legend>1. Pull Changes Before Commiting or Pushing</legend>
+  <h3><a href="/project/<%= @project['id'] %>/pull">Pull Changes</a></h3>
+</fieldset>
+
+<div class="span-12 column first">
+  
+  <form method="post" action="/project/<%= @project['id'] %>/add-remove-commit">
+    <fieldset>
+      <legend>2. Commit Changes</legend>
+      <textarea placeholder="What's new?" name="message"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>Status</legend>
+      
+      <% unless @added_files.empty? %>
+        <h4>Added Files</h4>
+	<% @added_files.each do |file| %>
+	  <%= file %>
+	<% end %>
+	<br /><br />
+      <% end %>
+      
+      <% unless @untracked_files.empty? %>
+        <h4>Untracked Files</h4>
+  	<% @untracked_files.each do |file| %>
+          <input type="checkbox" name="files[untracked][]" value="<%= file %>"/><%= file %><br />
+	<% end %>
+	<br /><br />
+      <% end %>
+
+      <% unless @changed_files.empty? %>
+        <h4>Changed Files</h4>
+        <% @changed_files.each do |file| %>
+          <input type="checkbox" name="files[changed][]" value="<%= file %>" /><%= file %><br />
+	<% end %>
+	<br /><br />
+      <% end %>
+
+      <% unless @deleted_files.empty? %>
+        <h4>Deleted Files</h4>
+	<% @deleted_files.each do |file| %>
+          <input type="checkbox" name="files[deleted][]" value="<%= file %>" /><%= file %><br />
+	<% end %>
+	<br /><br />
+      <% end %>
+      <button type="submit">Select & Comit Changes</button>
+
+    </fieldset>
+
+  </form>
+
+</div>
+
+<div class="span-12 column last">
+  
+  <form method="post" action="/project/<%= @project['id'] %>/push">
+    <fieldset class="right_field">
+      <legend>3. Push Changes</legend>
+      <button type="submit">Push Changes</button>
+    </fieldset>
+  </form>
+
+  <form method="post" action="#">
+    <fieldset class="right_field">
+      <legend>4. Copy Database</legend>
+      Not yet :)
+    </fieldset>
+  </form>
+
+  <fieldset>
+    <legend>Commit Log</legend>
+    <% @commit_history.each do |commit_line| %>
+      <%= commit_line %><br />
+    <% end %>
+  </fieldset>
+</div>
