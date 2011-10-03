@@ -10,6 +10,7 @@ end
 
 get '/project/:id' do
   @project = get_project_by_id(params[:id])
+  $log.debug "params in method: #{params.inspect}"
   @dev_repo = Grit::Repo.new(@project['dev_repo'])
 
   @commit_history = get_commit_history(@dev_repo, 3)
@@ -30,10 +31,12 @@ get '/project/:id/dev' do
 end
 
 get '/project/:id/test' do
+  @project = get_project_by_id(params[:id])
   erb :test
 end
 
 get 'project/:id/pro' do
+  @project = get_project_by_id(params[:id])
   erb :production
 end
 
@@ -44,12 +47,22 @@ post '/project/:id/add-remove-commit' do
   @commit_result = []
   unless params[:files].nil?
     @deleted = params[:files][:deleted]
-    @untracked = []
-    @untracked ||= params[:files][:untracked] 
-    @changed = []
-    @changed ||= params[:files][:changed]
+    @untracked = params[:files][:untracked] 
+    @changed = params[:files][:changed]
+    $log.debug "untracked: #{@untracked}"
+    $log.debug "changed: #{@changed}"
+    
+    @added = []
+    unless @untracked.nil?
+      @added += @untracked
+    end
+    unless @changed.nil?
+      @added += @changed
+    end
 
-    add_files(@dev_repo, @untracked + @changed)
+    $log.debug "added: #{@added}"
+
+    add_files(@dev_repo, @added)
     remove_files(@dev_repo, @deleted)
     
     @commit_result = commit_with_result(@dev_repo, params[:message])
@@ -57,7 +70,7 @@ post '/project/:id/add-remove-commit' do
   erb :commit
 end
 
-get '/project/:id/pull' do
+get '/project/:id/dev/pull' do
   @project = get_project_by_id(params[:id])
   
   server_root = env["DOCUMENT_ROOT"].sub("/public","")
@@ -65,17 +78,19 @@ get '/project/:id/pull' do
   Dir.chdir(@project['dev_repo'])
   
   @pull_result = []
-  IO.popen "git pull origin master" do |fd|
-    until fd.eof?
-      @pull_result << fd.readline
-    end
-  end
+  stdout, stderr = Open3.capture3("git pull origin master")
+
   Dir.chdir(server_root)
+  @pull_result = stderr.split("\n") + stdout.split("\n")
+
   erb :pull
 end
 
 post '/project/:id/push' do
-
+  @project = get_project_by_id(params[:id])
+  @dev_repo = Grit::Repo.new(@project['dev_repo'])
+  @push_result = push_with_result(@dev_repo, "origin", "master")
+  erb :push
 end
 
 get '/project/:id/result' do

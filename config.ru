@@ -5,6 +5,7 @@ require 'sinatra'
 require 'yaml'
 require 'grit'
 require 'logger'
+require 'open3'
 
 APP_DATA = YAML.load_file('config.yaml')
 

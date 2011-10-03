@@ -57,7 +57,6 @@ helpers do
   end
 
   def add_files(repo, files)
-    $log.debug "files to add: #{files.join(' ')}"
     unless files.nil?
       server_root = env["DOCUMENT_ROOT"].sub("/public","")
       Dir.chdir(repo.path.sub('.git',''))
@@ -69,7 +68,6 @@ helpers do
   end
 
   def remove_files(repo, files)
-    $log.debug "files to delete: #{files.join(' ')}"
     unless files.nil?
       server_root = env["DOCUMENT_ROOT"].sub("/public","")
       Dir.chdir(repo.path.sub('.git',''))
@@ -85,15 +83,23 @@ helpers do
     Dir.chdir(repo.path.sub('.git',''))
     
     commit_result = []
+    stdout, stderr = Open3.capture3("git commit -m '#{message}'")
 
-    IO.popen "git commit -m '#{message}'" do |fd|
-      until fd.eof?
-        commit_result << fd.readline
-      end
-    end
     Dir.chdir(server_root)
-
+    commit_result = stderr.split("\n") + stdout.split("\n")
     return commit_result
+  end
+
+  def push_with_result(repo, location, branch)
+    server_root = env["DOCUMENT_ROOT"].sub("/public","")
+    Dir.chdir(repo.path.sub('.git',''))
+    
+    push_result = []
+    stdout, stderr = Open3.capture3("git push #{location} #{branch}")
+
+    Dir.chdir(server_root)
+    push_result = stderr.split("\n") + stdout.split("\n")
+    return push_result
   end
 
 end
