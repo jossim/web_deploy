@@ -28,4 +28,22 @@
     font-size: 125%;
     padding-top: 25px;
     padding-bottom: 5px;
+} div.login {
+    width: 400px;
+    text-align: center;
+    font-size: 150%;
+    margin-left: auto;
+    margin-right: auto;
+} .login li {
+    list-style: none;
+} .notices {
+    height: 46px;
+    font-weight: bold;  
+    width: 400px;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+} .title {
+    text-align: center;
+    font-size: 300%;
 }

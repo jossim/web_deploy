@@ -16,6 +16,8 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
 Dir.mkdir('logs') unless File.exist?('logs')
 $log = Logger.new('logs/output.log','weekly')	
 
+enable :sessions
+
 configure :development do
   $log.level = Logger::DEBUG
 end

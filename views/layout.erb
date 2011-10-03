@@ -3,7 +3,11 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <title>
-      Web Deploy
+      <% unless @html_title.empty? %>
+	<%= "Web Deploy | #{@html_title}" %>
+      <% else %>
+	Web Deploy
+      <% end %>
     </title>
     <link href='/screen.css' rel='stylesheet' type='text/css' />
     <link href='/style.css' rel='stylesheet' type='text/css' />
@@ -11,14 +15,29 @@
     <script src='/scripts.js' type='text/javascript'></script>
   </head>
   <body>
+
     <div class="container">
-      <%= yield %>
+      <div class="title">
+	<%= @title %>
+      </div>
+      <div class="notices">
+	<% unless session['notice'].nil? %>
+	  <div class="notice"><%= session['notice'] %></div>
+	<% end %>
+      
+	<% unless session['errors'].nil? %>
+	  <div class="error"><%= session['errors'] %></div>
+	<% end %>
+      </div>
+      
+      <%= yield %>	
       <br />
       <footer><a href="/">Home</a>  
 	<% @projects.each do |project| %>
 	  &nbsp&nbsp|&nbsp&nbsp <a href="/project/<%=project[1]['id'] %>"><%= project[1]['name'] %></a>
-	<% end %>
+      <% end %>
       </footer>
+    
     </div>
   </body>
 </html>

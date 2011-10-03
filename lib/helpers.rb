@@ -1,4 +1,55 @@
 helpers do
+  ### authenticated session methods ###
+
+  def create_session(url = '/')  
+    authenticated = authenticate(params["username"], params["password"])
+
+    if authenticated
+      session["auth"] = authenticated
+      session["live"] = true
+      session["notice"] = "You are now logged in!"
+      redirect url
+    else  
+      session["live"] = true
+      session["errors"] = "Invalid username or password"  
+      redirect "/login"  
+    end  
+  end
+  
+  def authenticate(user, password)
+    if params["password"].empty? || params["password"].empty?
+      return false
+    else
+      $log.debug "APP_DATA: #{APP_DATA.inspect}"
+      $log.debug "params: #{params.inspect}"
+      return APP_DATA['configurations']['username'] == user && APP_DATA['configurations']['password'] == password
+    end
+  end
+  
+  def destroy_session  
+    if authenticated?
+      session["live"] = true
+      session["notice"] = "You are now logged out!"
+    end
+    session.delete("auth")    
+    redirect "/logout"
+  end 
+
+  def authenticated?
+    if session["auth"]
+      true
+    end
+  end    
+  # helper method that protects routes that should require login
+  def protected!
+    unless authenticated?
+      session["live"] = true
+      session["url"] = @env["REQUEST_URI"]
+      session["errors"] = "you need to be logged in to view this page"
+      redirect "/login"
+    end
+  end
+  ###  end authentication methods ###
 
   def get_projects
     return APP_DATA['projects']

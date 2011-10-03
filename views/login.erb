@@ -1,0 +1,13 @@
+<div class="login">
+  <form action="/login" method="POST">
+    <fieldset class="login">
+      <legend>Please login</legend>
+      <ul class="login">
+	<li>Username:<input type="text" name="username" id="username" /></li>
+	<li>Password:<input type="password" name="password" id="password" /></li>
+      </ul>
+      <input type="hidden" name="url" value='<%= session["url"] || "/" %>' />
+      <button type="submit">login</button>
+    </fieldset>
+  </form>
+</div>

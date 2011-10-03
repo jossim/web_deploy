@@ -1,5 +1,6 @@
-configutations:
-  user: josephs
+configurations:
+  username: asccpusher
+  password: try
 
 projects:
   git-test:
