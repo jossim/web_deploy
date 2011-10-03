@@ -2,9 +2,8 @@
 
 <form method="post" action="/project/<%= @project['id'] %>/pull">
   <fieldset class="pull">
-    <legend>Pull Changes Into Test</legend>
-    <input type="hidden" name="repo" value="test_repo" />
+    <legend>Pull Changes Into Production</legend>
+    <input type="hidden" name="repo" value="production_repo" />
     <button>Pull Changes</button>
   </fieldset>
 </form>
-

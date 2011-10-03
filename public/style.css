@@ -7,7 +7,10 @@
     text-align: center;
     width: 918px;
 } .right_field{
-    height: 46px;
+    height: 146px;
+    text-align: center;
+} .right_field button {
+    margin-top: 10%;
 } .project_list {
     font-size: 200%;
 } .project_list li {

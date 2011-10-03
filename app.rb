@@ -35,7 +35,7 @@ get '/project/:id/test' do
   erb :test
 end
 
-get 'project/:id/pro' do
+get '/project/:id/pro' do
   @project = get_project_by_id(params[:id])
   erb :production
 end
@@ -43,14 +43,11 @@ end
 post '/project/:id/add-remove-commit' do
   @project = get_project_by_id(params[:id])
   @dev_repo = Grit::Repo.new(@project['dev_repo'])
-  $log.debug "params: #{params.inspect}"
   @commit_result = []
   unless params[:files].nil?
     @deleted = params[:files][:deleted]
     @untracked = params[:files][:untracked] 
     @changed = params[:files][:changed]
-    $log.debug "untracked: #{@untracked}"
-    $log.debug "changed: #{@changed}"
     
     @added = []
     unless @untracked.nil?
@@ -70,22 +67,6 @@ post '/project/:id/add-remove-commit' do
   erb :commit
 end
 
-get '/project/:id/dev/pull' do
-  @project = get_project_by_id(params[:id])
-  
-  server_root = env["DOCUMENT_ROOT"].sub("/public","")
-
-  Dir.chdir(@project['dev_repo'])
-  
-  @pull_result = []
-  stdout, stderr = Open3.capture3("git pull origin master")
-
-  Dir.chdir(server_root)
-  @pull_result = stderr.split("\n") + stdout.split("\n")
-
-  erb :pull
-end
-
 post '/project/:id/push' do
   @project = get_project_by_id(params[:id])
   @dev_repo = Grit::Repo.new(@project['dev_repo'])
@@ -93,6 +74,10 @@ post '/project/:id/push' do
   erb :push
 end
 
-get '/project/:id/result' do
+post '/project/:id/pull' do
+  @project = get_project_by_id(params[:id])
+  repo = @project[params[:repo]]
 
+  @pull_result = pull_with_result(repo)
+  erb :pull
 end

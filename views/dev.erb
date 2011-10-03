@@ -1,11 +1,12 @@
 <center><h1><%= @project['name'] %></h1></center>
 
-<h3>What would you like to do?</h3>
-
-<fieldset class="pull">
-  <legend>1. Pull Changes Before Commiting or Pushing</legend>
-  <h3><a href="/project/<%= @project['id'] %>/dev/pull">Pull Changes</a></h3>
-</fieldset>
+<form method="post" action="/project/<%= @project['id'] %>/pull">
+  <fieldset class="pull">
+    <legend>1. Pull Changes from Master</legend>
+    <input type="hidden" name="repo" value="dev_repo" />
+    <button>Pull Changes</button>
+  </fieldset>
+</form>
 
 <div class="span-12 column first">
   
@@ -63,13 +64,6 @@
     <fieldset class="right_field">
       <legend>3. Push Changes</legend>
       <button type="submit">Push Changes</button>
-    </fieldset>
-  </form>
-
-  <form method="post" action="#">
-    <fieldset class="right_field">
-      <legend>4. Copy Database</legend>
-      Not yet :)
     </fieldset>
   </form>
 

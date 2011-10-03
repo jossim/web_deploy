@@ -102,5 +102,17 @@ helpers do
     return push_result
   end
 
+  def pull_with_result(repo, remote = false, location = 'origin', branch = 'master')
+    server_root = env["DOCUMENT_ROOT"].sub("/public","")
+    Dir.chdir(repo)
+    
+    pull_result = []
+    stdout, stderr = Open3.capture3("git pull #{location} #{branch}")
+
+    Dir.chdir(server_root)
+    pull_result = stderr.split("\n") + stdout.split("\n")
+    return pull_result
+    
+  end
 end
 
