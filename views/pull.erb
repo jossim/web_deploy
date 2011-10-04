@@ -1,5 +1,13 @@
-<h2><center>Pull Result</center></h2>
-
 <% @pull_result.each do |line| %>
   <%= line %><br />
 <% end %>
+
+<div class="next">
+  <% if @repo == "dev_repo" %>
+    <a href="/project/<%= @project['id'] %>/dev">Now go commit & push your changes &rarr;</a>
+  <% elsif @repo == "test_repo" %>
+    <a href="<%=@project['test_url'] %>">See what it looks like</a> | <a href="/project/<%= @project['id'] %>/pro">Pull changes into production &rarr;</a>
+  <% elsif @repo == "production_repo" %>
+    <a href="<%=@project['production_url'] %>">See what it looks like &rarr;</a>
+  <% end %>
+</div>

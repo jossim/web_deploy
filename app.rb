@@ -66,12 +66,14 @@ end
 get '/project/:id/test' do
   @project = get_project_by_id(params[:id])
   @title = @project['name']
+  @html_title = "#{@title} | test"
   erb :test
 end
 
 get '/project/:id/pro' do
   @project = get_project_by_id(params[:id])
   @title = @project['name']
+  @html_title = "#{@title} | production"
   erb :production
 end
 
@@ -104,6 +106,8 @@ end
 
 post '/project/:id/push' do
   @project = get_project_by_id(params[:id])
+  @title = "Push Result"
+  @html_title = "push"
   @dev_repo = Grit::Repo.new(@project['dev_repo'])
   @push_result = push_with_result(@dev_repo, "origin", "master")
   erb :push
@@ -111,8 +115,11 @@ end
 
 post '/project/:id/pull' do
   @project = get_project_by_id(params[:id])
-  repo = @project[params[:repo]]
-
-  @pull_result = pull_with_result(repo)
+  @title = "Pull Result"
+  @html_title = "pull"
+  repo_path = @project[params[:repo]]
+  @repo = params[:repo]
+  $log.debug "repo: #{@repo.inspect}"
+  @pull_result = pull_with_result(repo_path)
   erb :pull
 end

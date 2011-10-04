@@ -1,3 +1,7 @@
 <% @push_result.each do |line| %>
   <%= line %><br />
 <% end %>
+
+<div class="next">
+  <a href="/project/<%=@project['id'] %>/test">Pull results into Test &rarr;</a>
+</div>

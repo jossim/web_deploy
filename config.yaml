@@ -1,6 +1,7 @@
 configurations:
   username: asccpusher
-  password: try
+  password_hash: $2a$10$Dfxzu56RtsACQHU/m26WtuQla/f7DKlgGIsVzR5yAgNadg230qX9O
+  password_salt: $2a$10$Dfxzu56RtsACQHU/m26Wtu
 
 projects:
   git-test:

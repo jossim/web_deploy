@@ -6,6 +6,7 @@ require 'yaml'
 require 'grit'
 require 'logger'
 require 'open3'
+require 'bcrypt'
 
 APP_DATA = YAML.load_file('config.yaml')
 

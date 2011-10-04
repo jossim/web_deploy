@@ -17,6 +17,9 @@
   <body>
 
     <div class="container">
+      <% if authenticated? %>
+	<div class="logout"><a href="/session/kill">logout</a></div>
+      <% end %>
       <div class="title">
 	<%= @title %>
       </div>

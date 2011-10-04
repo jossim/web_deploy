@@ -22,7 +22,10 @@ helpers do
     else
       $log.debug "APP_DATA: #{APP_DATA.inspect}"
       $log.debug "params: #{params.inspect}"
-      return APP_DATA['configurations']['username'] == user && APP_DATA['configurations']['password'] == password
+
+      password_hashed = BCrypt::Engine.hash_secret(password, APP_DATA['configurations']['password_salt'])
+
+      return APP_DATA['configurations']['username'] == user && APP_DATA['configurations']['password_hash'] == password_hashed
     end
   end
   

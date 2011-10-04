@@ -7,7 +7,7 @@
     text-align: center;
     width: 918px;
 } .right_field{
-    height: 146px;
+    height: 129px;
     text-align: center;
 } .right_field button {
     margin-top: 10%;
@@ -15,9 +15,9 @@
     font-size: 200%;
 } .project_list li {
     margin-top: 20px;
-} .centered {
-    text-align: center;
-    font-size: 200%;
+} .center {
+    padding-left: 314px;
+    padding-right: 314px;
 } .left_bar {
     font-size: 85%;
     border-right: 1px solid;
@@ -46,4 +46,11 @@
 } .title {
     text-align: center;
     font-size: 300%;
+} .logout {
+    text-align: right;
+    margin-bottom: -18px;
+} .next {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 150%;
 }

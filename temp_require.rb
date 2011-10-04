@@ -6,6 +6,7 @@ require 'yaml'
 require 'grit'
 require 'logger'
 require 'open3'
+require 'bcrypt'
 
 APP_DATA = YAML.load_file('config.yaml')
 
@@ -15,7 +16,3 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each {|file| require file }
 
 Dir.mkdir('logs') unless File.exist?('logs')
 $log = Logger.new('logs/output.log','weekly')	
-
-configure :development do
-  $log.level = Logger::DEBUG
-end
