@@ -15,9 +15,12 @@
     font-size: 200%;
 } .project_list li {
     margin-top: 20px;
-} .center {
+} .center_div {
     padding-left: 314px;
     padding-right: 314px;
+} .center_text_big {
+    text-align: center;
+    font-size: 200%;
 } .left_bar {
     font-size: 85%;
     border-right: 1px solid;
