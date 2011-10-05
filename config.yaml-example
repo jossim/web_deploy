@@ -1,0 +1,16 @@
+configurations:
+  username: example_user
+  password_hash: <bcrypt-hash-salted-password>
+  password_salt: <bcrypt-salt>
+
+projects:
+  example-project:
+    id: example-project
+    name: Example Project
+    dev_url: http://dev.example.com
+    test_url: http://test.example.com
+    production_url: http://example.com
+    dev_repo: /scm/dev.example
+    master_repo: /scm/example.git
+    test_repo: /scm/test.example
+    production_repo: /scm/example.com

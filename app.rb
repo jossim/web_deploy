@@ -1,4 +1,4 @@
-require './temp_require.rb'
+#require './temp_require.rb'
 
 before do
   @projects = get_projects()
@@ -23,7 +23,8 @@ get '/login' do
 end
 
 post '/login' do
-  create_session
+  url = params["url"] || "/"
+  create_session(url)
 end
 
 get '/session/kill' do
