@@ -137,10 +137,10 @@ helpers do
     Dir.chdir(repo.path.sub('.git',''))
     
     commit_result = []
-    stdout, stderr = Open3.capture3("git commit -m '#{message}'")
+    stdin, stdout, stderr = Open3.popen3("git commit -m '#{message}'")
 
     Dir.chdir(server_root)
-    commit_result = stderr.split("\n") + stdout.split("\n")
+    commit_result = stderr.read.split("\n") + stdout.read.split("\n")
     return commit_result
   end
 
@@ -149,10 +149,10 @@ helpers do
     Dir.chdir(repo.path.sub('.git',''))
     
     push_result = []
-    stdout, stderr = Open3.capture3("git push #{location} #{branch}")
+    stdin, stdout, stderr = Open3.popen3("git push #{location} #{branch}")
 
     Dir.chdir(server_root)
-    push_result = stderr.split("\n") + stdout.split("\n")
+    push_result = stderr.read.split("\n") + stdout.read.split("\n")
     return push_result
   end
 
