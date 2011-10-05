@@ -161,10 +161,10 @@ helpers do
     Dir.chdir(repo)
     
     pull_result = []
-    stdout, stderr = Open3.capture3("git pull #{location} #{branch}")
+    stdin, stdout, stderr = Open3.popen3("git pull #{location} #{branch}")
 
     Dir.chdir(server_root)
-    pull_result = stderr.split("\n") + stdout.split("\n")
+    pull_result = stderr.read.split("\n") + stdout.read.split("\n")
     return pull_result
     
   end
