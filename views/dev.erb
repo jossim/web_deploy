@@ -24,6 +24,22 @@
 	<% end %>
 	<br /><br />
       <% end %>
+
+    <% unless @changed_files.empty? %>
+        <h4>Changed Files</h4>
+        <% @changed_files.each do |file| %>
+          <input type="checkbox" name="files[changed][]" value="<%= file %>" /><%= file %><br />
+	<% end %>
+	<br /><br />
+      <% end %>
+
+    <% unless @deleted_files.empty? %>
+        <h4>Deleted Files</h4>
+	<% @deleted_files.each do |file| %>
+          <input type="checkbox" name="files[deleted][]" value="<%= file %>" /><%= file %><br />
+	<% end %>
+	<br /><br />
+      <% end %>
       
       <% unless @untracked_files.empty? %>
         <h4>Untracked Files</h4>
@@ -33,22 +49,7 @@
 	<br /><br />
       <% end %>
 
-      <% unless @changed_files.empty? %>
-        <h4>Changed Files</h4>
-        <% @changed_files.each do |file| %>
-          <input type="checkbox" name="files[changed][]" value="<%= file %>" /><%= file %><br />
-	<% end %>
-	<br /><br />
-      <% end %>
-
-      <% unless @deleted_files.empty? %>
-        <h4>Deleted Files</h4>
-	<% @deleted_files.each do |file| %>
-          <input type="checkbox" name="files[deleted][]" value="<%= file %>" /><%= file %><br />
-	<% end %>
-	<br /><br />
-      <% end %>
-      <button type="submit">Select & Comit Changes</button>
+      <button type="submit">Select & Commit Changes</button>
 
     </fieldset>
 
