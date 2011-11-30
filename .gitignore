@@ -3,4 +3,3 @@
 tmp/
 logs/*
 config.yaml
-Gemfile.lock
