@@ -23,4 +23,8 @@ configure :development do
   $log.level = Logger::DEBUG
 end
 
+configure :production do
+  $log.level = Logger::WARN	  
+end
+
 run Sinatra::Application

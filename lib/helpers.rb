@@ -155,18 +155,47 @@ helpers do
     push_result = stderr.read.split("\n") + stdout.read.split("\n")
     return push_result
   end
+  
+  # This function goes to a repository and performs a git pull and returns the results
+  # in a string. This repository can be local or remote to the server the web deploy 
+  # application is running on. If it is remote, the application expects to be able to
+  # login to the remote server via SSH with no password. The following parameters can
+  # be set:
+  #
+  # * *repo* specifies which repository is in context when the command is run, should
+  #   be 'dev_repo','test_repo' or 'production_repo'.
+  #   *Default*: none. The application assumes that the dev_repo is local in all cases
+  #
+  # * *repo_path* this is file system path of the repository
+  #
+  # * *remote* boolean value that specifies if the test & production repositories are 
+  #   remote. *Default*: false
+  #
+  # * *user_host* this is the remote host and user in SSH syntext (e.g. user@example.com).
+  #   *Default*: nil
+  #
+  # * *location* this is the remote git repository to be pulled from. *Default*: origin
+  #
+  # * *branch* this is the git branch to be pulled from. *Default*: master
+  #
+  def pull_with_result(repo, repo_path, remote = false, user_host = nil, location = 'origin', branch = 'master')
+    if remote && repo != 'dev_repo'
+      stdin, stdout, stderr = Open3.popen3("ssh #{user_host} 'cd #{repo_path}; git pull #{location} #{branch}'")
+      pull_result = stderr.read.split("\n") + stdout.read.split("\n")
+      $log.debug "## ran remote"
+      return pull_result
+    else
+      server_root = env["DOCUMENT_ROOT"].sub("/public","")
+      Dir.chdir(repo_path)
+      
+      pull_result = []
+      stdin, stdout, stderr = Open3.popen3("git pull #{location} #{branch}")
 
-  def pull_with_result(repo, remote = false, location = 'origin', branch = 'master')
-    server_root = env["DOCUMENT_ROOT"].sub("/public","")
-    Dir.chdir(repo)
-    
-    pull_result = []
-    stdin, stdout, stderr = Open3.popen3("git pull #{location} #{branch}")
-
-    Dir.chdir(server_root)
-    pull_result = stderr.read.split("\n") + stdout.read.split("\n")
-    return pull_result
-    
+      Dir.chdir(server_root)
+      pull_result = stderr.read.split("\n") + stdout.read.split("\n")
+      return pull_result
+    end
   end
+
 end
 

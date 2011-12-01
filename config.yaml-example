@@ -2,6 +2,11 @@ configurations:
   username: example_user
   password_hash: <bcrypt-hash-salted-password>
   password_salt: <bcrypt-salt>
+  # you can generate the password in irb by running the following commands:
+  # require 'rubygems'
+  # require 'bcrypt'
+  # salt =  BCrypt::Engine.generate_salt
+  # password =  BCrypt::Engine.hash_secret('your_password', salt)
 
 projects:
   example-project:
@@ -14,3 +19,7 @@ projects:
     master_repo: /scm/example.git
     test_repo: /scm/test.example
     production_repo: /scm/example.com
+    remote: true
+    user_host: user@example.com
+    rack_app: true
+    rails_app: true

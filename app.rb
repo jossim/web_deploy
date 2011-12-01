@@ -119,8 +119,10 @@ post '/project/:id/pull' do
   @title = "Pull Result"
   @html_title = "pull"
   repo_path = @project[params[:repo]]
+  remote = @project['remote']
+  user_host = @project['user_host']
   @repo = params[:repo]
   $log.debug "repo: #{@repo.inspect}"
-  @pull_result = pull_with_result(repo_path)
+  @pull_result = pull_with_result(params[:repo],repo_path,remote, user_host)
   erb :pull
 end
